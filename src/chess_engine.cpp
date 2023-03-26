@@ -3,7 +3,7 @@
 #include "tables.h"
 #include "position.h"
 #include "types.h"
-
+using namespace surge;
 
 //Computes the perft of the position for a given depth, using bulk-counting
 //According to the https://www.chessprogramming.org/Perft site:
@@ -11,7 +11,7 @@
 //all the leaf nodes of a certain depth, which can be compared to predetermined values and used to isolate bugs
 template<Color Us>
 unsigned long long perft(Position& p, unsigned int depth) {
-	int nmoves;
+	
 	unsigned long long nodes = 0;
 
 	MoveList<Us> list(p);

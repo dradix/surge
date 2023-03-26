@@ -7,6 +7,9 @@
 #include <iostream>
 #include <vector>
 
+namespace surge
+{
+
 const size_t NCOLORS = 2;
 enum Color : int {
 	WHITE, BLACK
@@ -160,7 +163,7 @@ enum MoveFlags : int {
 class Move {
 private:
 	//The internal representation of the move
-	uint16_t move;
+	uint16_t move =0;
 public:
 	//Defaults to a null move (a1a1)
 	inline Move() : move(0) {}
@@ -182,7 +185,7 @@ public:
 
 	inline Square to() const { return Square(move & 0x3f); }
 	inline Square from() const { return Square((move >> 6) & 0x3f); }
-	inline int to_from() const { return move & 0xffff; }
+	inline int to_from() const { return move & 0x0fff; }
 	inline MoveFlags flags() const { return MoveFlags((move >> 12) & 0xf); }
 
 	inline bool is_capture() const {
@@ -190,7 +193,11 @@ public:
 	}
 
 	void operator=(Move m) { move = m.move; }
-	bool operator==(Move a) const { return to_from() == a.to_from(); }
+	bool operator==(Move a) const { 
+		return to_from() == a.to_from(); 
+	}
+
+
 	bool operator!=(Move a) const { return to_from() != a.to_from(); }
 };
 
@@ -269,3 +276,4 @@ constexpr Bitboard ooo_blockers_mask() {
 }
 	
 template<Color C> constexpr Bitboard ignore_ooo_danger() { return C == WHITE ? 0x2 : 0x200000000000000; }
+} // namespace surge
