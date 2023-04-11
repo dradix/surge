@@ -1,7 +1,7 @@
 #include "tables.h"
 #include "types.h"
 #include <iostream>
-
+#include <cstring>
 namespace surge
 {
 
